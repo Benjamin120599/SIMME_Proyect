@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">ProyectoInnovacion</string>
+
+    <string name="txt_btn_login">Acceder</string>
+    <string name="txt_btn_añadir">Añadir Registro</string>
+    <string name="txt_btn_crearCuenta">Crear Una Cuenta</string>
+    <string name="txt_btn_ver_registro">Mostrar Registros</string>
+    <string name="txt_btn_ver_grafica">Mostrar Gráfica</string>
+
+    <string name="txt_lbl_instruccion">Ponte al día con solo un click.</string>
+    <string name="txt_lbl_formulario">FORMULARIO DE VENTAS</string>
+    <string name="txt_lbl_usuarios">Crea una cuenta</string>
+    <string name="txt_lbl_bd">REGISTROS</string>
+    <string name="txt_lbl_favoritos">FAVORITOS</string>
+    <string name="txt_lbl_grafica">GRAFICAS</string>
+    <string name="txt_lbl_paginas">PAGINAS</string>
+    <string name="txt_lbl_ventas">Total Ventas </string>
+    <string name="txt_lbl_mes">Mes: </string>
+    <string name="txt_lbl_año">Año: </string>
+    <string name="txt_lbl_log">OR</string>
+    <string name="txt_lbl_user">Usuario</string>
+    <string name="txt_lbl_pass">Contraseña</string>
+    <string name="open">Abrir</string>
+    <string name="close">Cerrar</string>
+    <string name="txt_lbl_firma">Nombre</string>
+    <string name="txt_lbl_id_venta">ID Venta</string>
+
+    <string name="menu_favorites">Favoritos</string>
+    <string name="menu_registros">Registros</string>
+    <string name="menu_bd">Base de Datos</string>
+    <string name="menu_graficas">Gráficas</string>
+    <string name="menu_noticias">Noticias</string>
+
+
+
+</resources>

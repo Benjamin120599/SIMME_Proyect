@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/noticias"
+            android:title="@string/menu_noticias"
+            android:icon="@drawable/web"
+            android:checked="false">
+        </item>
+
+        <item
+            android:id="@+id/registro"
+            android:title="@string/menu_registros"
+            android:icon="@drawable/registro"
+            android:checked="false">
+        </item>
+
+        <item
+            android:id="@+id/base_de_datos"
+            android:title="@string/menu_bd"
+            android:icon="@drawable/database"
+            android:checked="false">
+        </item>
+
+        <item
+            android:id="@+id/favoritos"
+            android:title="@string/menu_favorites"
+            android:icon="@drawable/favoritos"
+            android:checked="false">
+
+        </item>
+
+    </group>
+
+</menu>
