@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import itsj.proyectoinnovacion.Adapters.FavoritosAdapter;
+import itsj.proyectoinnovacion.Adapters.VentasAdapter;
 import itsj.proyectoinnovacion.POJOS.Favoritos;
 import itsj.proyectoinnovacion.R;
 
@@ -35,7 +37,11 @@ public class FragmentFavoritos extends Fragment {
         String tit = "Titulo";//getArguments().getString("Titulo");
         String date = "DATE";//getArguments().getString("Fecha");
         String cont = "Contenido";//getArguments().getString("Contenido");
-        añadirFavoritos(tit, date, cont);
+        String link = "Lin";
+
+        FavoritosAdapter adapter = new FavoritosAdapter(getActivity().getBaseContext(), listaFavoritos);
+        recyclerView.setAdapter(adapter);
+
     }
 
     @Override
@@ -45,9 +51,9 @@ public class FragmentFavoritos extends Fragment {
         return rootView;
     }
 
-    public void añadirFavoritos(String titulo, String fecha, String contenido) {
+    public void añadirFavoritos(String titulo, String fecha, String contenido, String link) {
         listaFavoritos = new ArrayList<Favoritos>();
-        listaFavoritos.add(new Favoritos(titulo, fecha, contenido));
+        listaFavoritos.add(new Favoritos(titulo, fecha, contenido, link));
     }
 
 }

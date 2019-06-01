@@ -12,6 +12,8 @@ import android.arch.persistence.room.util.TableInfo;
 import android.arch.persistence.room.util.TableInfo.Column;
 import android.arch.persistence.room.util.TableInfo.ForeignKey;
 import android.arch.persistence.room.util.TableInfo.Index;
+import itsj.proyectoinnovacion.Controlador.FavoritosDAO;
+import itsj.proyectoinnovacion.Controlador.FavoritosDAO_Impl;
 import itsj.proyectoinnovacion.Controlador.UsuariosDAO;
 import itsj.proyectoinnovacion.Controlador.UsuariosDAO_Impl;
 import itsj.proyectoinnovacion.Controlador.VentasDAO;
@@ -29,6 +31,8 @@ public class AppDataBase_Impl extends AppDataBase {
 
   private volatile VentasDAO _ventasDAO;
 
+  private volatile FavoritosDAO _favoritosDAO;
+
   @Override
   protected SupportSQLiteOpenHelper createOpenHelper(DatabaseConfiguration configuration) {
     final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(configuration, new RoomOpenHelper.Delegate(1) {
@@ -36,14 +40,16 @@ public class AppDataBase_Impl extends AppDataBase {
       public void createAllTables(SupportSQLiteDatabase _db) {
         _db.execSQL("CREATE TABLE IF NOT EXISTS `Usuarios` (`nombre` TEXT, `apellido_paterno` TEXT, `apellido_materno` TEXT, `user` TEXT NOT NULL, `contraseña` TEXT, PRIMARY KEY(`user`))");
         _db.execSQL("CREATE TABLE IF NOT EXISTS `Ventas` (`idVenta` INTEGER NOT NULL, `total_venta` REAL NOT NULL, `fecha_venta` TEXT, `responsable` TEXT, PRIMARY KEY(`idVenta`))");
+        _db.execSQL("CREATE TABLE IF NOT EXISTS `Favoritos` (`title` TEXT NOT NULL, `pub_date` TEXT, `content` TEXT, `link` TEXT, PRIMARY KEY(`title`))");
         _db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"1134a2d9633129e903ef62cd6889bcf6\")");
+        _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"8918cf722574b4e3082636c1c5b0259b\")");
       }
 
       @Override
       public void dropAllTables(SupportSQLiteDatabase _db) {
         _db.execSQL("DROP TABLE IF EXISTS `Usuarios`");
         _db.execSQL("DROP TABLE IF EXISTS `Ventas`");
+        _db.execSQL("DROP TABLE IF EXISTS `Favoritos`");
       }
 
       @Override
@@ -97,8 +103,22 @@ public class AppDataBase_Impl extends AppDataBase {
                   + " Expected:\n" + _infoVentas + "\n"
                   + " Found:\n" + _existingVentas);
         }
+        final HashMap<String, TableInfo.Column> _columnsFavoritos = new HashMap<String, TableInfo.Column>(4);
+        _columnsFavoritos.put("title", new TableInfo.Column("title", "TEXT", true, 1));
+        _columnsFavoritos.put("pub_date", new TableInfo.Column("pub_date", "TEXT", false, 0));
+        _columnsFavoritos.put("content", new TableInfo.Column("content", "TEXT", false, 0));
+        _columnsFavoritos.put("link", new TableInfo.Column("link", "TEXT", false, 0));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysFavoritos = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesFavoritos = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoFavoritos = new TableInfo("Favoritos", _columnsFavoritos, _foreignKeysFavoritos, _indicesFavoritos);
+        final TableInfo _existingFavoritos = TableInfo.read(_db, "Favoritos");
+        if (! _infoFavoritos.equals(_existingFavoritos)) {
+          throw new IllegalStateException("Migration didn't properly handle Favoritos(itsj.proyectoinnovacion.POJOS.Favoritos).\n"
+                  + " Expected:\n" + _infoFavoritos + "\n"
+                  + " Found:\n" + _existingFavoritos);
+        }
       }
-    }, "1134a2d9633129e903ef62cd6889bcf6", "3c7ccb187099a15b9988fe787c43ab47");
+    }, "8918cf722574b4e3082636c1c5b0259b", "9857874a783370730a42069116ceea96");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(configuration.context)
         .name(configuration.name)
         .callback(_openCallback)
@@ -109,7 +129,7 @@ public class AppDataBase_Impl extends AppDataBase {
 
   @Override
   protected InvalidationTracker createInvalidationTracker() {
-    return new InvalidationTracker(this, "Usuarios","Ventas");
+    return new InvalidationTracker(this, "Usuarios","Ventas","Favoritos");
   }
 
   @Override
@@ -120,6 +140,7 @@ public class AppDataBase_Impl extends AppDataBase {
       super.beginTransaction();
       _db.execSQL("DELETE FROM `Usuarios`");
       _db.execSQL("DELETE FROM `Ventas`");
+      _db.execSQL("DELETE FROM `Favoritos`");
       super.setTransactionSuccessful();
     } finally {
       super.endTransaction();
@@ -154,6 +175,20 @@ public class AppDataBase_Impl extends AppDataBase {
           _ventasDAO = new VentasDAO_Impl(this);
         }
         return _ventasDAO;
+      }
+    }
+  }
+
+  @Override
+  public FavoritosDAO favoritosDAO() {
+    if (_favoritosDAO != null) {
+      return _favoritosDAO;
+    } else {
+      synchronized(this) {
+        if(_favoritosDAO == null) {
+          _favoritosDAO = new FavoritosDAO_Impl(this);
+        }
+        return _favoritosDAO;
       }
     }
   }
