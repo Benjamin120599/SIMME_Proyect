@@ -1025,6 +1025,8 @@ drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
 drawable ic_refresh
+drawable ic_star_black_24dp
+drawable ic_star_border_black_24dp
 drawable icono2
 drawable mtrl_snackbar_background
 drawable mtrl_tabs_default_indicator
@@ -1271,7 +1273,6 @@ id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
 id txtContent
-id txtFirma
 id txtIDVenta
 id txtPubDate
 id txtTitulo
@@ -1281,6 +1282,7 @@ id unlabeled
 id up
 id useLogo
 id user
+id userReg
 id view_offset_helper
 id visible
 id withText

@@ -34,7 +34,7 @@ public class FragmentRegistros extends Fragment {
 
         idVentas = view.findViewById(R.id.txtIDVenta);
         ventas = view.findViewById(R.id.txtVentas);
-        nombre = view.findViewById(R.id.txtFirma);
+        //nombre = view.findViewById(R.id.txtFirma);
         spinnerMes = view.findViewById(R.id.spinnerMes);
         spinnerAño = view.findViewById(R.id.spinnerAño);
         añadir = view.findViewById(R.id.btnAñadir);
@@ -73,20 +73,27 @@ public class FragmentRegistros extends Fragment {
     public void agregarVenta(View v) {
 
         String id = idVentas.getText().toString();
-        String total = ventas.getText().toString();
+        //String id = String.valueOf(idNum);
+        //if(id.equals(MainActivity.db.ventasDAO().findById(Integer.parseInt(id)))){
+        //Toast.makeText(getActivity().getApplicationContext(), "INSERCIÓN INCORRECTA", Toast.LENGTH_SHORT).show();
+        //}
+        String total;
+        if(ventas.getText().toString().equals("")){
+            total = "0";
+        } else {
+            total = ventas.getText().toString();
+        }
         String fecha = spinnerMes.getSelectedItem().toString()+"/"+spinnerAño.getSelectedItem().toString();
         String responsable = MainActivity.db.usuariosDAO().findByUsers(LoginActivity.usuarioReferencia).getNombre()+" "+MainActivity.db.usuariosDAO().findByUsers(LoginActivity.usuarioReferencia).getApellidoP() ; //nombre.getText().toString();
 
         Ventas registroVenta = new Ventas(Integer.parseInt(id), Double.parseDouble(total), fecha, responsable);
 
-        if(/*!id.equals("") &&*/ !total.equals("") /*&& !responsable.equals("")*/) {
+        if(!id.equals("") || !total.equals("0") /*&& !responsable.equals("")*/) {
             MainActivity.db.ventasDAO().insertVenta(registroVenta);
             Toast.makeText(getActivity().getApplicationContext(), "INSERCIÓN CORRECTA", Toast.LENGTH_SHORT).show();
         }  else {
             Toast.makeText(getActivity().getApplicationContext(), "INSERCIÓN INCORRECTA", Toast.LENGTH_SHORT).show();
         }
-
-
 
     }
 

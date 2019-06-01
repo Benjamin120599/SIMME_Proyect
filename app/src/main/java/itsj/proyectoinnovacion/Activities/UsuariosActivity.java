@@ -30,7 +30,7 @@ public class UsuariosActivity extends AppCompatActivity {
         nombre = findViewById(R.id.nombreUsuario);
         apellidoP = findViewById(R.id.apellidoP);
         apellidoM = findViewById(R.id.apellidoM);
-        usuario = findViewById(R.id.user);
+        usuario = findViewById(R.id.userReg);
         contraseña = findViewById(R.id.pass);
 
         crearCuenta = findViewById(R.id.botonRegistrar);
