@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import itsj.proyectoinnovacion.Activities.MainActivity;
 import itsj.proyectoinnovacion.Adapters.FavoritosAdapter;
 import itsj.proyectoinnovacion.Adapters.VentasAdapter;
 import itsj.proyectoinnovacion.POJOS.Favoritos;
@@ -34,11 +35,7 @@ public class FragmentFavoritos extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        String tit = "Titulo";//getArguments().getString("Titulo");
-        String date = "DATE";//getArguments().getString("Fecha");
-        String cont = "Contenido";//getArguments().getString("Contenido");
-        String link = "Lin";
-
+        listaFavoritos = MainActivity.db.favoritosDAO().getAlL();
         FavoritosAdapter adapter = new FavoritosAdapter(getActivity().getBaseContext(), listaFavoritos);
         recyclerView.setAdapter(adapter);
 
@@ -49,11 +46,6 @@ public class FragmentFavoritos extends Fragment {
         View rootView;
         rootView = inflater.inflate(R.layout.fragment_favoritos, container, false);
         return rootView;
-    }
-
-    public void añadirFavoritos(String titulo, String fecha, String contenido, String link) {
-        listaFavoritos = new ArrayList<Favoritos>();
-        listaFavoritos.add(new Favoritos(titulo, fecha, contenido, link));
     }
 
 }

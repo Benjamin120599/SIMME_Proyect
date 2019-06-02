@@ -13,8 +13,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import itsj.proyectoinnovacion.Activities.MainActivity;
 import itsj.proyectoinnovacion.Fragments.FragmentFavoritos;
 import itsj.proyectoinnovacion.Interface.itemClickListener;
+import itsj.proyectoinnovacion.POJOS.Favoritos;
 import itsj.proyectoinnovacion.POJOS.RSSObject;
 import itsj.proyectoinnovacion.R;
 
@@ -91,26 +93,14 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder> {
         feedViewHolder.btnFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Bundle bundle = new Bundle();
-                bundle.putString("Titulo", String.valueOf(rssObject.getItems().get(i).getTitle()));
-                bundle.putString("Fecha", String.valueOf(rssObject.getItems().get(i).getPubDate()));
-                bundle.putString("Contenido", String.valueOf(rssObject.getItems().get(i).getContent()));
-                FragmentFavoritos fragFav = new FragmentFavoritos();
-                fragFav.setArguments(bundle);
-                //getFragmentManager().beginTransaction().add(R.id.container, ldf).commit();
-
-                //Intent fragment = new Intent(mContext, FragmentFavoritos.class);
-                //fragment.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                //mContext.startActivity(fragment);
-                //fragment.putExtra("Titulo", String.valueOf(rssObject.getItems().get(i).getTitle()));
-                //fragment.putExtra("Fecha", String.valueOf(rssObject.getItems().get(i).getPubDate()));
-                //fragment.putExtra("Contenido", String.valueOf(rssObject.getItems().get(i).getContent()));
-
+                String titulo = rssObject.getItems().get(i).getTitle();
+                String fecha = rssObject.getItems().get(i).getPubDate();
+                String contenido = rssObject.getItems().get(i).getContent();
+                String link = rssObject.getItems().get(i).getLink();
+                MainActivity.db.favoritosDAO().insertFavorito(new Favoritos(titulo, fecha, contenido, link));
                 Toast.makeText(mContext, "Añadida a Favoritas", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     @Override
